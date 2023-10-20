@@ -1,0 +1,42 @@
+{% load static %}
+<nav class="w-full flex justify-between items-center py-3 px-4 fixed z-50">
+    <div class="w-6/12">
+        <a href="/">
+            <img src="{% static "imgs/animeflix.png" %}" alt="AnimeflixLogo" class="w-2/12">
+        </a>
+    </div>
+    <div class="w-6/12 flex flex-nowrap justify-end">
+        {% if user.is_authenticated %}
+            <div class="mr-2">
+                <form method="GET" action="{% url 'anime:search' %}">
+                    <input type="text" class="py-1 px-2 rounded-md text-black" name="q" value="{{request.GET.q}}" placeholder="Search...">
+                    <input type="submit" value="">
+                </form>
+            </div>
+            <div class="mr-2">
+                <a href="{% url 'anime:logout' %}?next=/">
+                    <button class="bg-indigo-700 text-white py-1 px-3 rounded-md">
+                        Logout
+                    </button>
+                </a>
+            </div>
+            <div class="mr-2">
+                <a href="{% url 'anime:profileedit' user.pk %}">
+                    {% if user.user_image %}
+                        <img src="{{ user.user_image.url }}" class='w-8 h-8' alt="">
+                    {% else %}
+                        <img src="{% static 'imgs/default_user_img.png' %}" class='w-8 h-8' alt="">
+                    {% endif %}
+                </a>
+            </div>
+        {% else %}
+            <div class="mr-2">
+                <a href="{% url 'anime:login' %}">
+                    <button class="bg-indigo-700 text-white py-1 px-3 rounded-md">
+                        Login
+                    </button>
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</nav>

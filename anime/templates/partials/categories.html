@@ -1,0 +1,109 @@
+{% if tag.first %}
+    <section class='bg-primary_black flex justify-center'>
+        {% if top %}
+            <div class="pt-20 w-10/12 relative" >
+        {% else %}
+            <div class="w-10/12 relative" >
+        {% endif %}
+        {% if tag2 %}
+            <h2 class="text-gray-200 text-2xl font-medium">{{tag2}}</h2>
+        {% else %}
+            <h2 class="text-gray-200 text-2xl font-medium">{{tag.first.category}}</h2>
+        {% endif %}
+            <div class="wrapper">
+                {% if category %}
+                    <section id="section1{{category}}" class="flex flex-nowrap items-center justify-center space-x-8 h-4/5 p-10">
+                    {% if tag.count > 6 %}
+                        <a href="#section2{{category}}" class="arrow__btn text-6xl page">‹</a>
+                    {% endif %}
+                {% else %}
+                    <section id="section1{{tag.first.category}}" class="flex flex-nowrap items-center justify-center space-x-8 h-4/5 p-10">
+                    {% if tag.count > 6 %}
+                        <a href="#section2{{tag.first.category}}" class="arrow__btn text-6xl page">‹</a>
+                    {% endif %}
+                {% endif %}
+                    {% if again %}
+                        {% for category in tag %}
+                            {% if forloop.counter < 7 %}
+                                <div class="item h-64 m-4">
+                                    {% if related.first.pk != category.pk %}
+                                        {% if current_watch != category.pk %}
+                                            <a href="{% url 'anime:details' category.pk %}">
+                                                <img src="{{ category.thumb.url }}" class="rounded-md w-full h-full object-cover">
+                                                <h5 class="text-gray-200 text-xs font-medium">{{category.title|wordwrap:30|linebreaksbr}}</h5>
+                                            </a>
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        {% for category in tag %}
+                            {% if forloop.counter < 7 %}
+                                <div class="item h-64 m-4">
+                                    {% if related.first.pk != category.name.pk %}
+                                        {% if current_watch != category.name.pk %}
+                                            <a href="{% url 'anime:details' category.name.pk %}">
+                                                <img src="{{ category.name.thumb.url }}" class="rounded-md w-full h-full object-cover">
+                                                <h5 class="text-gray-200 text-xs font-medium">{{category.title|wordwrap:30|linebreaksbr}}</h5>
+                                            </a>
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                            {% endif %} 
+                        {% endfor %}
+                    {% endif %}
+                    {% if tag.count > 6 %}
+                        {% if category %}
+                            <a href="#section2{{category}}" class="arrow__btn text-6xl">›</a>
+                        {% else %}
+                            <a href="#section2{{tag.first.category}}" class="arrow__btn text-6xl">›</a>
+                        {% endif %}
+                    {% endif %}
+                </section>
+                {% if category %}
+                    <section id="section2{{category}}" class="flex flex-nowrap items-center justify-center space-x-8 h-4/5 p-10">
+                        <a href="#section1{{category}}" class="arrow__btn text-6xl">‹</a>
+                {% else %}
+                    <section id="section2{{tag.first.category}}" class="flex flex-nowrap items-center justify-center space-x-8 h-4/5 p-10">
+                        <a href="#section1{{tag.first.category}}" class="arrow__btn text-6xl">‹</a>
+                {% endif %}
+                    {% if again %}
+                        {% for category in tag|slice:"6:" %}
+                            {% if forloop.counter < 7 %}
+                                <div class="item h-64 m-4">
+                                    {% if related.first.pk != category.pk %}
+                                        <a href="{% url 'anime:details' category.pk %}">
+                                            <img src="{{ category.thumb.url }}" class="rounded-md w-full h-full object-cover">
+                                            <h5 class="text-gray-200 text-xs font-medium">{{category.title|wordwrap:30|linebreaksbr}}</h5>
+                                        </a>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        {% for category in tag|slice:"6:" %}
+                                {% if forloop.counter < 7 %}
+                                    <div class="item h-64 m-4">
+                                        {% if related.first.pk != category.name.pk %}
+                                            <a href="{% url 'anime:details' category.name.pk %}">
+                                                <img src="{{ category.name.thumb.url }}" class="rounded-md w-full h-full object-cover">
+                                                <h5 class="text-gray-200 text-xs font-medium">{{category.name.title|wordwrap:30|linebreaksbr}}</h5>
+                                            </a>
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    {% if tag.count > 6 %}
+                        {% if category %}
+                            <a href="#section1{{category}}" class="arrow__btn text-6xl">›</a>
+                        {% else %}
+                            <a href="#section1{{tag.first.category}}" class="arrow__btn text-6xl">›</a>
+                        {% endif %}
+                    {% endif %}
+                </section>
+            </div>
+        </div>
+    </section>
+{% endif %}

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}AnimeFlix - Animes{% endblock title %}
+
+{% block content %}
+<main class='bg-primary_black min-h-screen w-full'>
+    {% include "partials/categories.html" with tag=recent tag2='NEW' again=True category='new_animes' top=True %}
+    {% include "partials/categories.html" with tag=most_watched tag2='MOST WATCHED' again=True category='most_watched' %}
+    {% include "partials/categories.html" with tag=request.user.watched_movies.all tag2='CONTINUE WATCHING' again=True category='continue_watching' %}
+    {% for cat in allcat %}
+        {% include "partials/categories.html" with tag=cat %}
+    {% endfor %}
+</main>
+{% endblock content %}

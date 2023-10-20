@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}AnimeFlix - {{object.title}} {% endblock title %}
+
+{% block content %}
+<main class='bg-primary_black min-h-screen w-full'>
+    <header class="min-h-screen bg-black bg-opacity-75 bg-blend-overlay showcase border-gray-600 border-b-8 flex justify-center items-center bg-no-repeat">
+        <div class="z-10 h-full py-32 md:py-0 text-gray-100 text-center flex items-center flex-col">
+            <div class="py-32 w-full flex justify-center">
+                <div class="justify-center items-center w-11/12 md:w-10/12">
+                    <img class="object-center md:object-center inline w-11/12 md:w-3/12 rounded-md object-cover" src="{{object.thumb.url}}" alt="">
+                    <h2 class="md:text-5xl text-4xl font-semibold mb-4">
+                        {{object.title}}
+                    </h2>
+                    <p>{{object.description}}</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex flex-col justify-center text-center md:text-center p-5 md:p-10">
+        {% include "partials/episodes.html" %}
+        {% for cat in allcat %}
+            {% if cat.first.category in related.first.category %}
+                {% include "partials/categories.html" with tag=cat tag2="You Might Like" current_watch=object.pk %}
+            {% endif %}
+        {% endfor %}
+    </div>
+</main>
+{% endblock content %}

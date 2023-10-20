@@ -1,0 +1,43 @@
+<section class='bg-primary_black flex justify-center'>
+    <div class="w-10/12 relative">
+        <h2 class="px-48 md:text-5xl text-4xl font-semibold mb-4 text-center">You might like</h2>
+        <div class="wrapper">
+            <section id="section1related" class="flex flex-nowrap items-center justify-center space-x-8 h-4/5 p-10">
+                <a href="#section2related" class="arrow__btn text-6xl page">‹</a>
+                {% for category in related|slice:1 %}
+                    {% for anime in category.category %}
+                        {% if forloop.counter < 8 %}
+                            <div class="item h-64 m-4">
+                                {% if anime.pk != current_anime.first.pk %}
+                                    <a href="{% url 'anime:details' anime.pk %}">
+                                        <img src="{{ anime.thumb.url }}" class="rounded-md w-full h-full object-cover">
+                                        <h5 class="text-gray-200 text-xs font-medium">{{anime.title|wordwrap:30|linebreaksbr}}</h5>
+                                    </a>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+                <a href="#section2related" class="arrow__btn text-6xl">›</a>
+            </section>
+            <section id="section2related" class="flex flex-nowrap items-center justify-center space-x-8 h-4/5 p-10">
+                <a href="#section1related" class="arrow__btn text-6xl">‹</a>
+                {% for category in related|slice:1 %}
+                    {% for anime in anime_list|slice:"7:" %}
+                        {% if forloop.counter < 8 %}
+                            {% if anime.pk != current_anime.first.pk %}
+                                <div class="item h-64 m-4">
+                                    <a href="{% url 'anime:details' anime.pk %}">
+                                        <img src="{{ anime.thumb.url }}" class="rounded-md w-full h-full object-cover">
+                                        <h5 class="text-gray-200 text-xs font-medium">{{anime.title|wordwrap:30|linebreaksbr}}</h5>
+                                    </a>
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+                <a href="#section1related" class="arrow__btn text-6xl">›</a>
+            </section>
+        </div>
+    </div>
+</section>

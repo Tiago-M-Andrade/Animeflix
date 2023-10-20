@@ -1,0 +1,47 @@
+{% if object.episodes.all.count > 0 %}
+    <section class='bg-primary_black flex justify-center'>
+        <div class="w-10/12 relative" >
+            <h2 class="px-48 md:text-5xl text-4xl font-semibold mb-4">Episodes</h2>
+            <div class="wrapper">
+                <section id="section1episode" class="flex flex-nowrap items-center justify-center space-x-8 h-4/5 p-10">
+                    {% if object.episodes.all.count > 5 %}
+                        <a href="#section2episode" class="arrow__btn text-6xl page">‹</a>
+                    {% endif %}
+                    {% for episode in object.episodes.all %}
+                        {% if forloop.counter < 6 %}
+                            <div class="item h-64 m-4">
+                                <a href="{% url 'anime:play' object.pk episode.pk %}">
+                                    <img src="{{ episode.thumb.url }}" class="rounded-md w-full h-full object-cover">
+                                    <h5 class="text-gray-200 text-xs font-medium">{{episode.title|wordwrap:30|linebreaksbr}}</h5>
+                                </a>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                    {% if object.episodes.all.count > 5 %}
+                        <a href="#section2episode" class="arrow__btn text-6xl">›</a>
+                    {% endif %}
+                </section>
+                {% if object.episodes.all|length > 5 %}
+                    <section id="section2episode" class="flex flex-nowrap items-center justify-center space-x-8 h-4/5 p-10">
+                        {% if object.episodes.all.count > 5 %}
+                            <a href="#section1episode" class="arrow__btn text-6xl">‹</a>
+                        {% endif %}
+                        {% for episode in object.episodes.all %}
+                            {% if forloop.counter > 5 %}
+                                <div class="item h-64 m-4">
+                                    <a href="{% url 'anime:play' object.pk episode.pk %}">
+                                        <img src="{{ episode.thumb.url }}" class="rounded-md w-full h-full object-cover">
+                                        <h5 class="text-gray-200 text-xs font-medium">{{episode.title|wordwrap:30|linebreaksbr}}</h5>
+                                    </a>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                        {% if object.episodes.all.count > 5 %}
+                            <a href="#section1episode" class="arrow__btn text-6xl">›</a>
+                        {% endif %}
+                    </section>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+{% endif %}
