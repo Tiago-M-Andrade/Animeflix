@@ -8,3 +8,5 @@ media/thumb
 media/thumb_animes
 media/thumb_episodes
 db.sqlite3
+thumb_animes
+debug.log
