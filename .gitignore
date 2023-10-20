@@ -2,11 +2,11 @@ comandosbasicos.txt
 planejamento.txt
 .venv
 .env
-media/video
-media/profile_img
-media/thumb
-media/thumb_animes
-media/thumb_episodes
+media/video/*
+media/profile_img/*
+media/thumb/*
+media/thumb_animes/*
+media/thumb_episodes/*
 db.sqlite3
 thumb_animes
 debug.log
